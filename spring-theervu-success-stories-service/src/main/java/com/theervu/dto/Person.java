@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,11 +29,11 @@ public class Person {
 	@Column(name="PERSON_PLACE")
 	private String personPlace;
 	
-/*	@ManyToOne
+	@ManyToMany
 	@JoinColumn(name="STORY_ID")
-	private SuccessStories stories;
-		*/
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	private List<SuccessStory> story;
+		
+	@OneToMany(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	private List<AvailableFormat> availableFormat;
 	/**
 	 * @return the stories
@@ -41,11 +42,25 @@ public class Person {
 /*	public SuccessStories getStories() {
 		return stories;
 	}*/
+	
+	
 	/**
 	 * @return the personPlace
 	 */
 	public String getPersonPlace() {
 		return personPlace;
+	}
+	/**
+	 * @return the story
+	 */
+	public List<SuccessStory> getStory() {
+		return story;
+	}
+	/**
+	 * @param story the story to set
+	 */
+	public void setStory(List<SuccessStory> story) {
+		this.story = story;
 	}
 	/**
 	 * @param personPlace the personPlace to set
